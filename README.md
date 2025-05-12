@@ -51,8 +51,8 @@ Each team has three predefined roles:
 ### 1. Clone the repository
 
 ```
-git clone https://your-repo-url.git
-cd your-project-directory
+git clone https://github.com/AliR-kh/laravel_permission_system.git
+cd tandis
 ```
 
 ### 2. Install dependencies
