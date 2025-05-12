@@ -6,6 +6,7 @@ class CheckPermission
 {
     /**
      * Create a new policy instance.
+     * @throws \Exception
      */
     public static function check($type,$model,$model_ids,$user,$operation_type="create")
     {
@@ -16,9 +17,7 @@ class CheckPermission
         elseif ($type=="edit"):
             $class=new Edit($model,$model_ids,$user,$operation_type);
         endif;
-        if (!is_null($class)):
-            return $class->response();
-        endif;
+        return !is_null($class) ? $class->response() : throw new \Exception("invalid role type");
 
 
     }

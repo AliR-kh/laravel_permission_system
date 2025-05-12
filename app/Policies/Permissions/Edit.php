@@ -35,7 +35,7 @@ class Edit
                             ->orWhere('name', 'editor');
                     })
                     ->get())):
-                    $permissions[strval($team->id)] = $team->getAllPermissions()->where('model',  $model)->pluck('model_id')->toArray();
+                    $permissions[strval($team->id)] = $team->getAllPermissions()->where('model', $model)->pluck('model_id')->toArray();
                 endif;
             endforeach;
             $result = [];
@@ -52,7 +52,7 @@ class Edit
                     endif;
                 endforeach;
             endif;
-          return  $this->user->hasRole("Super Admin") ?  ["0"=>1] :  $result;
+            return $this->user->hasRole("Super Admin") ? ["0" => 1] : $result;
         endif;
 
 

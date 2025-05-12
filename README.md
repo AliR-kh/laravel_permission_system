@@ -97,3 +97,23 @@ This will create a user with the following credentials:
 
 - Ensure Sanctum is correctly configured if you're using token-based authentication.
 - This project supports both OTP-based login and traditional email/password login methods.
+
+🔐 Permission System Architecture
+The permission system in this project is extensible. In the future, if access control is needed for resources beyond product, the system is designed to support that easily.
+
+🧩 Core Design
+Each product has a corresponding permission record in the permissions table.
+
+Products have a many-to-many relationship with both users and teams via permissions.
+
+👁️ Access Rules
+A user can only view products:
+
+If they have the permission directly.
+
+Or if they belong to a team with roles admin, editor, or viewer, which is granted access to that product.
+
+Product access to users and teams is managed by the Super Admin.
+
+Users with either the admin or editor role in a specific team are allowed to edit the products that belong to that team.
+

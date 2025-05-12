@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin\Permissions;
 use App\Http\Controllers\Controller;
-use App\Interfaces\Permissions\AssignPermissionRole;
 use App\Models\Permission;
 use App\Models\Team;
 use App\Models\User;
@@ -20,8 +19,9 @@ class AssignPermissionController extends Controller
             if ($validated->fails()):
                 return self::badRequest(message: "not ok", error: $validated->errors());
             endif;
-            $team=Team::query()->find($validated->validated()['team_id']);
-            $permission=Permission::query()->find($validated->validated()['permission_id']);
+            $validated=$validated->validated();
+            $team=Team::query()->find($validated['team_id']);
+            $permission=Permission::query()->find($validated['permission_id']);
             $team->permissions()->syncWithoutDetaching($permission);
             return self::successResponse('ok');
         } catch (\Exception $exception) {
@@ -36,8 +36,9 @@ class AssignPermissionController extends Controller
             if ($validated->fails()):
                 return self::badRequest(message: "not ok", error: $validated->errors());
             endif;
-            $user=User::query()->find($validated->validated()['user_id']);
-            $permission=Permission::query()->find($validated->validated()['permission_id']);
+            $validated=$validated->validated();
+            $user=User::query()->find($validated['user_id']);
+            $permission=Permission::query()->find($validated['permission_id']);
             $user->permissions()->syncWithoutDetaching($permission);
             return self::successResponse('ok');
         } catch (\Exception $exception) {

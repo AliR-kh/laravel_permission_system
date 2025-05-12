@@ -28,7 +28,6 @@ class create_super_admin extends Command
     public function handle()
     {
         $user=User::query()->firstOrCreate(["phone"=>"09123456789"]);
-//        $user=User::query()->firstOrCreate(["phone"=>"09364882128"]);
         $role=Role::findOrCreate("Super Admin");
         $user->assignRole($role);
 

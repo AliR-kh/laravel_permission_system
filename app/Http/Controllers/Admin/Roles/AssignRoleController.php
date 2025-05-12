@@ -21,8 +21,9 @@ class AssignRoleController extends Controller
             if ($validated->fails()):
                 return self::badRequest(message: "not ok", error: $validated->errors());
             endif;
-            $team=Team::query()->find($validated->validated()['team_id']);
-            $role=Role::query()->find($validated->validated()['role_id']);
+            $validated=$validated->validated();
+            $team=Team::query()->find($validated['team_id']);
+            $role=Role::query()->find($validated['role_id']);
             $team->roles()->syncWithoutDetaching($role);
             return self::successResponse('ok');
         } catch (\Exception $exception) {
@@ -36,8 +37,9 @@ class AssignRoleController extends Controller
             if ($validated->fails()):
                 return self::badRequest(message: "not ok", error: $validated->errors());
             endif;
-            $user=User::query()->find($validated->validated()['user_id']);
-            $role=Role::query()->find($validated->validated()['role_id']);
+            $validated=$validated->validated();
+            $user=User::query()->find($validated['user_id']);
+            $role=Role::query()->find($validated['role_id']);
             $user->roles()->syncWithoutDetaching($role);
             return self::successResponse('ok');
         } catch (\Exception $exception) {

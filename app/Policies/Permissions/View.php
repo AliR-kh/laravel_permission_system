@@ -39,7 +39,7 @@ class View
                     $permissions = array_unique(array_merge($permissions, $team->getAllPermissions()->where('model', str_replace('\\', '/', $model))->pluck('model_id')->toArray()));
                 endif;
             endforeach;
-            $userPermissions = $this->user->getAllPermissions()->where('model', str_replace('\\', '/', $model))->pluck('model_id')->toArray();
+            $userPermissions = $this->user->getAllPermissions()->where('model', $model)->pluck('model_id')->toArray();
             $permissions = array_unique(array_merge($permissions, $userPermissions));
             $this->model_ids = is_null($this->model_ids) ? $model::all()->pluck('id')->toArray() : $this->model_ids;
             if ($this->user->hasRole("Super Admin")):
