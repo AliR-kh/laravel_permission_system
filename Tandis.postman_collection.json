@@ -1,0 +1,655 @@
+{
+	"info": {
+		"_postman_id": "08800f53-f372-4f64-9822-60d30e5fac8f",
+		"name": "Tandis",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "41963099"
+	},
+	"item": [
+		{
+			"name": "login",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\":\"otp\",\r\n    \"phone\":\"09123456789\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/login/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"login",
+								""
+							]
+						},
+						"description": "### Login API\n\nThis API endpoint is used to authenticate and login a user.\n\n#### Request Body\n\n- `type` (string) - The type of authentication, in this case, it is \"otp\".\n    \n- `phone` (string) - The phone number of the user.\n    \n\n#### Response\n\nUpon successful authentication, the API returns a status code of 200 and the content type is \"text/html\". The response body contains the authentication token or user information."
+					},
+					"response": []
+				},
+				{
+					"name": "verify",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\":\"otp\",\r\n    \"phone\":\"09123456789\",\r\n    \"code\":\"1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/login/verify",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"login",
+								"verify"
+							]
+						},
+						"description": "true response is\n\n``` json\n{\n    \"status\": \"OK\",\n    \"messages\": \"Ok\",\n    \"data\": {\n        \"token\": \"7|xaGR7zzbgOOMyMuWwa0XGTjDsFA5A6ZWyuqmMZ9neb3441a3\"\n    },\n    \"error\": {\n        \"error_messages\": null,\n        \"error_code\": null\n    }\n}\n\n ```\n\nfalse response is:\n\n```\n{\n    \"status\": \"Not OK\",\n    \"messages\": \"not Ok \",\n    \"data\": [],\n    \"error\": {\n        \"error_messages\": {\n            \"error\": \"OTP is expired\"\n        },\n        \"error_code\": null\n    }\n}\n\n ```"
+					},
+					"response": []
+				}
+			],
+			"description": "StartFragment\n\nThis API collection is for login.\n\n### Step 1: Register\n\nSend the phone number: `\"09123456789\"`.\n\n### Step 2: Verify\n\nNext, execute the `verify` API. By default, the OTP code is `\"1234\"`.\n\n### Output\n\nYou will receive a token from this API.\n\n### Usage\n\nUse this token in the **environment** as a `auth_test` variable, so you won't need to replace it in other APIs that require authentication.\n\nEndFragment"
+		},
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "teams",
+					"item": [
+						{
+							"name": "get team",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{auth_test}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/admin/teams",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"admin",
+										"teams"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "store team",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{auth_test}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"product\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/admin/teams/store",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"admin",
+										"teams",
+										"store"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "store team",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{auth_test}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"product 2\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/admin/teams/update/6",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"admin",
+										"teams",
+										"update",
+										"6"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "assign user to team",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{auth_test}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"product\"\r\n}"
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/admin/teams/assign-user/6/1",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"admin",
+										"teams",
+										"assign-user",
+										"6",
+										"1"
+									]
+								},
+								"description": "StartFragment\n\n### Assign User to Team\n\n**Endpoint:**  \n`http://127.0.0.1:8000/api/admin/teams/assign-user/{team_id}/{user_id}`\n\n**Description:**  \n  \nThis request assigns a specific team to a user.  \n  \nIt requires the **ID of the team** and the **ID of the user** to be provided in the URL.\n\nEndFragment"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "permissions",
+					"item": [
+						{
+							"name": "Get Permissions",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{auth_test}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"product 2\"\r\n}"
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/admin/permissions",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"admin",
+										"permissions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "assign permission to user",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{auth_test}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"user_id\":5,\r\n    \"permission_id\":19\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/admin/permissions/assign/user",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"admin",
+										"permissions",
+										"assign",
+										"user"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "assign permission to team",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"team _id\":5,\r\n    \"permission_id\":19\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/admin/permissions/assign/user",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"admin",
+										"permissions",
+										"assign",
+										"user"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "roles",
+					"item": [
+						{
+							"name": "Get Roles",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{auth_test}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/admin/roles",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"admin",
+										"roles"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "assign role to user",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"user_id\":5,\r\n    \"role_id\":19\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/admin/roles/assign/user",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"admin",
+										"roles",
+										"assign",
+										"user"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "assign roles to team",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"role_id\":5,\r\n    \"team_id\":19\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/admin/roles/assign/team",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"admin",
+										"roles",
+										"assign",
+										"team"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"description": "This folder contains the collection related to the admin.\n\n### Team APIs:\n\n1. **Get Team**:\n    \n    The `GET team` API returns a list of all teams.\n    \n2. **Store Team**:\n    \n    The `POST team` API creates a new team along with three roles: `admin`, `editor`, and `viewer`.\n    \n3. **Update Team**:\n    \n    The `PUT team` API updates an existing team.\n    \n4. **Assign Role to Team**:\n    \n    The `POST assign role team` API assigns a role to a user within a team.\n    \n\nThis folder contains the admin-related API collection.\n\n### Roles & Permissions APIs:\n\n- **Assign Role to Team**\n    \n    Assigns a role to a team.\n    \n- **Assign Role to User**\n    \n    Assigns a role to a user.\n    \n- **Assign Permission to Team**\n    \n    Assigns a permission to a team.\n    \n- **Assign Permission to User**\n    \n    Assigns a permission to a user.\n    \n\n---\n\n- **Create Role**\n    \n    Defines a new role.\n    \n- **Update Role**\n    \n    Updates an existing role.\n    \n- **Get Roles**\n    \n    Returns a list of all defined roles.\n    \n\n---\n\n- **Create Permission**\n    \n    Defines a new permission.\n    \n- **Update Permission**\n    \n    Updates an existing permission.\n    \n- **Get Permissions**\n    \n    Returns a list of all defined permissions."
+		},
+		{
+			"name": "products",
+			"item": [
+				{
+					"name": "update product",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_test}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\":\"هییییچییییی\",\r\n    \"price\":50\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/products/update/10",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"products",
+								"update",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "store product",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_test}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\":\"هییییچییییی\",\r\n    \"slug\":\"test 1000\",\r\n    \"price\":50\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/products/store",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"products",
+								"store"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "show product",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_test}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/products/show/10",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"products",
+								"show",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "show all product",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_test}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/products",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
