@@ -45,16 +45,14 @@ class Edit
                         $result[] = $key;
                     endif;
                 endforeach;
-                return $result;
             elseif ($this->operation_type == "update"):
                 foreach ($permissions as $key => $permission):
                     if (array_intersect($permission, $this->model_ids)):
                         $result[] = $key;
                     endif;
                 endforeach;
-                return $result;
             endif;
-
+          return  $this->user->hasRole("Super Admin") ?  ["0"=>1] :  $result;
         endif;
 
 

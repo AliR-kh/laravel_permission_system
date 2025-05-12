@@ -101,9 +101,9 @@ class OtpLogin implements Login
                 "code" => $code,
                 "status" => 'pending',
             ]);
-            return self::successResponse("Ok", data: ["code" => $code]);
+            return self::successResponse(message: "Ok", data: ["code" => $code]);
         } catch (\Exception $exception) {
-            return self::serverError("there is wrong", error: $exception->getMessage());
+            return self::serverError(message: "there is wrong", error: $exception->getMessage());
         }
     }
 

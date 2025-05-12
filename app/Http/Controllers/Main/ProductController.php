@@ -37,7 +37,7 @@ class ProductController extends Controller
     {
         try {
             $result = CheckPermission::check('edit', "Product", null, auth()->user(), 'create');
-            if (empty($result)):
+            if (empty($result) ):
                 return self::forbidden('not permission');
             endif;
             $validator = $this->storeValidator($request);
@@ -45,9 +45,7 @@ class ProductController extends Controller
                 return self::badRequest('not Ok', error: $validator->errors());
             endif;
             $product = Product::query()->create($validator->validated());
-            $permission=AssignPermissionToModel::assignPermission($product->title,"Product",$product->id);
-            $team=Team::query()->find($result[0]);
-            $team->permissions()->attach($permission);
+            AssignPermissionToModel::assignPermission($product->title,"Product",$product->id);
             return self::successResponse(message: "ok", data: $product->toArray());
         } catch (\Exception $exception) {
             return self::serverError($exception->getMessage());

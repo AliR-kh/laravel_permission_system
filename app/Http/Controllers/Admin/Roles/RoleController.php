@@ -16,7 +16,7 @@ class RoleController extends Controller
     public function index()
     {
         try {
-            $roles=Role::all()->select(['id','name'])->all();
+            $roles=Role::all()->select(['id','name','team_id'])->all();
             return self::successResponse(message:"OK",data:$roles);
         }catch (\Exception $e){
             return self::badRequest(message: "Not Ok" , error: $e->getMessage());

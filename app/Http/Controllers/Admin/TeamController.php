@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Classes\Permission\AssignRoleToTeam;
 use App\Http\Controllers\Controller;
 use App\Models\Team;
+use App\Models\User;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -59,15 +60,21 @@ class TeamController extends Controller
                 return self::badRequest(message: 'not Ok',error: $validator->errors());
             endif;
             $team->update($validator->validated());
-            return self::successResponse(message: "ok", data: $team);
+            return self::successResponse(message: "ok", data: $team->toArray());
         } catch (\Exception $exception) {
             return self::badRequest(message: "Not Ok", error: $exception->getMessage());
         }
     }
 
 
-    public function assignUser()
+    public function assignUser(Request $request, Team $team,User $user)
     {
+        try {
+            $user->teams()->attach($team);
+            return self::successResponse(message: "ok");
+        }catch (\Exception $exception){
+            return self::badRequest(message: "Not Ok", error: $exception->getMessage());
+        }
 
     }
     /**

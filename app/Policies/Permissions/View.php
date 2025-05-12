@@ -42,6 +42,9 @@ class View
             $userPermissions = $this->user->getAllPermissions()->where('model', str_replace('\\', '/', $model))->pluck('model_id')->toArray();
             $permissions = array_unique(array_merge($permissions, $userPermissions));
             $this->model_ids = is_null($this->model_ids) ? $model::all()->pluck('id')->toArray() : $this->model_ids;
+            if ($this->user->hasRole("Super Admin")):
+                return $this->model_ids;
+            endif;
             return array_intersect($permissions, $this->model_ids);
         endif;
 

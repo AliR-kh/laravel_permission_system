@@ -21,8 +21,8 @@ Route::prefix('admin/')->name('admin.')->middleware(['auth:sanctum','role:Super 
         Route::get('',[\App\Http\Controllers\Admin\Roles\RoleController::class,'index']);
         Route::post('store',[\App\Http\Controllers\Admin\Roles\RoleController::class,'store']);
         Route::post('update/{role}',[\App\Http\Controllers\Admin\Roles\RoleController::class,'update']);
-    Route::prefix('assign')->name('roles.')->group(function () {
-        Route::get('team',[\App\Http\Controllers\Admin\Roles\AssignRoleController::class,'team']);
+    Route::prefix('assign')->name('assign.')->group(function () {
+        Route::post('team',[\App\Http\Controllers\Admin\Roles\AssignRoleController::class,'team']);
         Route::post('user',[\App\Http\Controllers\Admin\Roles\AssignRoleController::class,'user']);
     });
     });
@@ -30,8 +30,8 @@ Route::prefix('admin/')->name('admin.')->middleware(['auth:sanctum','role:Super 
         Route::get('',[\App\Http\Controllers\Admin\Permissions\PermissionController::class,'index']);
         Route::post('store',[\App\Http\Controllers\Admin\Permissions\PermissionController::class,'store']);
         Route::post('update/{permission}',[\App\Http\Controllers\Admin\Permissions\PermissionController::class,'update']);
-    Route::prefix('assign')->name('roles.')->group(function () {
-        Route::get('team',[\App\Http\Controllers\Admin\Permissions\AssignPermissionController::class,'team']);
+    Route::prefix('assign')->name('assign.')->group(function () {
+        Route::post('team',[\App\Http\Controllers\Admin\Permissions\AssignPermissionController::class,'team']);
         Route::post('user',[\App\Http\Controllers\Admin\Permissions\AssignPermissionController::class,'user']);
     });
     });
@@ -39,8 +39,8 @@ Route::prefix('admin/')->name('admin.')->middleware(['auth:sanctum','role:Super 
     Route::prefix('teams')->name('teams.')->group(function () {
         Route::get('',[\App\Http\Controllers\Admin\TeamController::class,'index']);
         Route::post('store',[\App\Http\Controllers\Admin\TeamController::class,'store']);
-        Route::post('update/{team}',[\App\Http\Controllers\Admin\TeamController::class,'update']);
-        Route::post('assign-user',[\App\Http\Controllers\Admin\TeamController::class,'assignUser']);
+        Route::put('update/{team}',[\App\Http\Controllers\Admin\TeamController::class,'update']);
+        Route::post('assign-user/{team}/{user}',[\App\Http\Controllers\Admin\TeamController::class,'assignUser']);
     });
 });
 
@@ -48,5 +48,5 @@ Route::prefix("products")->name("products.")->middleware('auth:sanctum')->group(
     Route::get("",[ProductController::class,'index'])->name("index");
     Route::get("show/{product}",[ProductController::class,'show'])->name("show");
     Route::post("store",[ProductController::class,'store'])->name("store");
-    Route::post("update/{product}",[ProductController::class,'update'])->name("update");
+    Route::put("update/{product}",[ProductController::class,'update'])->name("update");
 });
